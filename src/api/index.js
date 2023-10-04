@@ -11,26 +11,26 @@ createServer({
 		this.post("/todos", (schema, request) => {
 			let attrs = JSON.parse(request.requestBody)
 		
-			return schema.todos.create({...attrs, id: Date.now})
+			return schema.todos.create({...attrs, id: Date.now, status: 'notStarted'})
 		})
 
     this.get('/todos', async (schema, request) => {
       await sleep();
       const data = schema.todos.all();
-      const searchPattern = new RegExp(decodeURI(request.queryParams.search), "i")
-      let todos;
+      // const searchPattern = new RegExp(decodeURI(request.queryParams.search), "i")
+      // let todos;
 
-      if (request.queryParams.status === 'false' && request.queryParams.search) {
-        todos = data.filter(todo => !todo.status && searchPattern.test(todo.title));
-      } else if (request.queryParams.status === 'false' && !request.queryParams.search) {
-        todos = data.filter(todo => !todo.status);
-      } else if (request.queryParams.status === 'true' && request.queryParams.search) {
-        todos = data.filter(todo => searchPattern.test(todo.title));
-      } else if (request.queryParams.status === 'true' && !request.queryParams.search) {
-        todos = data;
-      }
+      // if (request.queryParams.status === 'false' && request.queryParams.search) {
+      //   todos = data.filter(todo => !todo.status && searchPattern.test(todo.title));
+      // } else if (request.queryParams.status === 'false' && !request.queryParams.search) {
+      //   todos = data.filter(todo => !todo.status);
+      // } else if (request.queryParams.status === 'true' && request.queryParams.search) {
+      //   todos = data.filter(todo => searchPattern.test(todo.title));
+      // } else if (request.queryParams.status === 'true' && !request.queryParams.search) {
+      //   todos = data;
+      // }
 
-      return todos;
+      return data;
     });
 
     this.patch('/todos/:id', async (schema, request) => {
@@ -64,7 +64,7 @@ createServer({
   seeds(server) {
     server.create('todo', {
 			id: Date.now(),
-      status: false,
+      status: 'notStarted',
       title: 'Demo completed tickets',
       body:
         'This is a deep dive — THIS IS NOT a beginner-friendly todo. In this todo, I’m describing most of the React programming model from first principles. I don’t explain how to use it — just how it works.\n' +
@@ -73,7 +73,7 @@ createServer({
     });
     server.create('todo', {
 			id: Date.now(),
-      status: true,
+      status: 'inProgress',
       title: 'Preparing for a Tech Talk, Part 1: Motivation',
       body:
         'What motivates you to give a talk?\n' +
@@ -84,7 +84,7 @@ createServer({
     });
     server.create('todo', {
 			id: Date.now(),
-      status: false,
+      status: 'isCompleted',
       title: 'Peer review in the afternoon',
       body:
         'For a while, the canonical answer has been that classes provide access to more features (like state). With Hooks, that’s not true anymore.\n' +
@@ -93,7 +93,7 @@ createServer({
     });
     server.create('todo', {
 			id: Date.now(),
-      status: false,
+      status: 'notStarted',
       title: 'Release changes to prod at midnight',
       body:
         'In this talk, my aim was to show why strict adherence to writing code that is free of duplication inevitably leads to software we can’t understand. While you could watch this talk by yourself, I tried to make it a good starting point for a team discussion. If you drop it in Slack, tell me what your teammates thought!\n' +
