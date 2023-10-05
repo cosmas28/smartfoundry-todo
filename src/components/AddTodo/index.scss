@@ -4,5 +4,10 @@
 
 	&__submit-button {
 		margin-left: 10px;
+		cursor: pointer;
+
+		&:disabled {
+			cursor: not-allowed;
+		}
 	}
 }
