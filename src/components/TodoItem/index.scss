@@ -20,6 +20,15 @@
 
 		&__edit {
 			margin-right: 10px;
+			cursor: pointer;
+		}
+
+		&__delete {
+			cursor: pointer;
+
+			&:disabled {
+				cursor: not-allowed;
+			}
 		}
 	}
 }

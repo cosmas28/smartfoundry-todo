@@ -12,6 +12,7 @@ const TodoItem: FC<Props> = ({ todo: { id, title, status} }) => {
 	const [updatedStatus, setUpdatedStatus] = useState<Status>(status)
 	const [isEditing, setIsEditing] = useState<boolean>(false)
 	const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
+	const [isDeleting, setIsDeleting] = useState<boolean>(false)
 	const [updatedTitle, setUpdatedTitle] = useState<string>(title)
 
 	const updateTodoItem = (todo: Todo) => {
@@ -53,6 +54,22 @@ const TodoItem: FC<Props> = ({ todo: { id, title, status} }) => {
 		setIsEditing(false)
 	}
 
+	const onClickDeleteButton = () => {
+		setIsDeleting(true)
+		fetch(`${BASE_URL}/api/todos/${id}`, {
+			method: 'DELETE',
+			headers: {
+				Accept: 'application.json',
+				'Content-Type': 'application/json'
+			},
+			cache: 'default'
+		})
+		.then(async() => {
+			setAllTodos?.(todos?.filter((todo) => todo.id !== id) as Todo[])
+			setIsDeleting(false)
+		})
+	}
+
 	return (
 		<div className='todo'>
 			<form onSubmit={onClickSaveButton} className='todo__form-wrapper'>
@@ -75,7 +92,9 @@ const TodoItem: FC<Props> = ({ todo: { id, title, status} }) => {
 				<button onClick={isEditing ? onClickSaveButton : onClickEditButton} className='todo__actions__edit'>
 					{isEditing ? 'Save' : isSubmitting ? 'Loading...' : 'Edit'}
 				</button>
-				<button>Delete</button>
+				<button className='todo__actions__delete' disabled={isDeleting || isSubmitting || isEditing } onClick={onClickDeleteButton}>
+					{isDeleting ? 'Deleting...' : 'Delete'}
+				</button>
 			</div>
 		</div>
 	)

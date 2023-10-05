@@ -9,6 +9,7 @@ type Props = {
 	loading: boolean
 	addTodoItem: (title: string) => void
 	setAllTodos: (todos: Todo[]) => void
+	deleteTodoItem: (id: string) => void
 }
 
 const TodoContext = createContext<Partial<Props>>({})
@@ -46,13 +47,28 @@ export const TodoProvider: FC<{children: ReactElement}> = ({children}) => {
 		})
 	}
 
+	const deleteTodoItem = (id: string) => {
+		fetch(`${BASE_URL}/api/todos/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application.json',
+        'Content-Type': 'application/json'
+      },
+      cache: 'default'
+    })
+		.then(async() => {
+			setAllTodos?.(todos.filter((todo) => todo.id !== id))
+		})
+	}
+
 	return (
 		<TodoContext.Provider value={
 			{
 				todos,
 				loading,
 				addTodoItem,
-				setAllTodos
+				setAllTodos,
+				deleteTodoItem
 			}
 		}>
 			{children}
