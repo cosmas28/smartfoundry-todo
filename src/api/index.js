@@ -11,7 +11,7 @@ createServer({
 		this.post("/todos", (schema, request) => {
 			let attrs = JSON.parse(request.requestBody)
 		
-			return schema.todos.create({...attrs, id: Date.now, status: 'notStarted'})
+			return schema.todos.create({...attrs, id: Date.now(), status: 'notStarted'})
 		})
 
     this.get('/todos', async (schema, request) => {
