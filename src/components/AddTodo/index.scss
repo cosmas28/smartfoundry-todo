@@ -1,0 +1,8 @@
+.add-todo {
+	display: flex;
+	flex-direction: row;
+
+	&__submit-button {
+		margin-left: 10px;
+	}
+}
