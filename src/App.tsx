@@ -1,10 +1,11 @@
 import * as React from 'react'
 import './App.scss'
-import TodoApp from './container/TodoApp'
+import TodoApp from './containers/TodoApp'
+import { TodoProvider } from './context/TodoProvider'
 
 function App() {
   return (
-    <><TodoApp /></>
+    <TodoProvider><TodoApp /></TodoProvider>
   )
 }
 
