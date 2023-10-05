@@ -1,13 +1,14 @@
 import React, { useContext, createContext, ReactElement, FC, useState, useEffect} from 'react'
 import { Todo, Action } from '../../types'
 
-const BASE_URL = 'http://localhost:5173'
+export const BASE_URL = 'http://localhost:5173'
 
 type Props = {
 	todos: Todo[]
 	dispatch: (action: Action) => void
 	loading: boolean
 	addTodoItem: (title: string) => void
+	setAllTodos: (todos: Todo[]) => void
 }
 
 const TodoContext = createContext<Partial<Props>>({})
@@ -46,6 +47,15 @@ export const TodoProvider: FC<{children: ReactElement}> = ({children}) => {
 	}
 
 	return (
-		<TodoContext.Provider value={{ todos, loading, addTodoItem }}>{children}</TodoContext.Provider>
+		<TodoContext.Provider value={
+			{
+				todos,
+				loading,
+				addTodoItem,
+				setAllTodos
+			}
+		}>
+			{children}
+		</TodoContext.Provider>
 	)
 }

@@ -11,7 +11,7 @@ const TodoApp = () => {
 			<div className='todos__section--left'>
 				<AddTodo/>
 				{todos?.map((todo) => (
-					<TodoItem key={todo.id} id={todo.id} title={todo.title} />
+					<TodoItem key={todo.id} todo={todo} />
 				))}
 				{loading && <div className='loading'><p>Loading...</p></div>}
 			</div>
