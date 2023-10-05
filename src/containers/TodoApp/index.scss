@@ -7,12 +7,16 @@
 		width: 49%;
 		display: flex;
 
-		&--left {
+		&__left {
+			display: flex;
+			width: 100%;
 			flex-direction: column;
 			align-items: flex-start;
 		}
 
-		&--right {
+		&__right {
+			display: flex;
+			width: 100%;
 			align-items: center;
 		}
 	}
