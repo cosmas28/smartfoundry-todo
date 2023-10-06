@@ -75,11 +75,11 @@ const TodoItem: FC<Props> = ({ todo: { id, title, status} }) => {
 			<div className='todo__wrapper'>
 				<form onSubmit={onClickSaveButton} className='todo__form-wrapper'>
 					<div className='todo__form-wrapper__title'>
-					{isEditing ? (
+					{isEditing || isSubmitting ? (
 						<label htmlFor='title'>
 							<input id='title' name='title' value={updatedTitle} onChange={handleTitleChange} />
 						</label>
-					) : isSubmitting ? <p>Loading...</p> : (<p>{title}</p>)}
+					) : (<p>{title}</p>)}
 					</div>
 					<label htmlFor='status'>
 						<select id='status' value={updatedStatus} onChange={handleChange}>
@@ -90,7 +90,7 @@ const TodoItem: FC<Props> = ({ todo: { id, title, status} }) => {
 					</label>
 				</form>
 				<div className='todo__actions'>
-					<button onClick={isEditing ? onClickSaveButton : onClickEditButton} className='todo__actions__edit'>
+					<button disabled={!updatedTitle} onClick={isEditing ? onClickSaveButton : onClickEditButton} className='todo__actions__edit'>
 						{isEditing ? 'Save' : isSubmitting ? 'Loading...' : 'Edit'}
 					</button>
 					<button className='todo__actions__delete' disabled={isDeleting || isSubmitting || isEditing } onClick={onClickDeleteButton}>
