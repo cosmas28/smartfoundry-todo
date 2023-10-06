@@ -5,6 +5,7 @@ import './index.scss'
 const AddTodo: FC = () => {
 	const { setAllTodos, todos } = useTodo()
 	const [title, setTitle] = useState<string>('')
+	const [error, setError] = useState<string>('')
 	const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
 
 	const handleTitleChange = (event: FormEvent<HTMLInputElement>) => {
@@ -24,7 +25,9 @@ const AddTodo: FC = () => {
     })
 		.then(async(res) => {
 			const jsonRes = await res.json()
-			if (todos) setAllTodos?.([...todos, jsonRes.todo])
+			if (jsonRes.error) {
+				setError(jsonRes.error)
+			} else if (jsonRes.todo && todos) setAllTodos?.([...todos, jsonRes.todo])
 			setIsSubmitting(false)
 			setTitle('')
 		})
@@ -33,16 +36,20 @@ const AddTodo: FC = () => {
 	const handleOnSubmit = (event: FormEvent<HTMLFormElement>) => {
 		// to prevent the default form behavior of submitting, we need to call
 		event.preventDefault();
+		setError('')
 		addTodoItem?.(title ?? '')
 	}
 
 	return (
-		<form onSubmit={handleOnSubmit} className='add-todo'>
-			<label className='add-todo__input-wrapper' htmlFor='title'>
-				<input width="100%" id='title' name='title' type='text' value={title} onChange={handleTitleChange} />
-			</label>
-			<button type='submit' disabled={!title} className='add-todo__submit-button'>{isSubmitting ? 'Loading...' : 'Add'}</button>
-		</form>
+		<div className='add-todo-wrapper'>
+			<form onSubmit={handleOnSubmit} className='add-todo'>
+				<label className='add-todo__input-wrapper' htmlFor='title'>
+					<input width="100%" id='title' name='title' type='text' value={title} onChange={handleTitleChange} />
+				</label>
+				<button type='submit' disabled={!title} className='add-todo__submit-button'>{isSubmitting ? 'Loading...' : 'Add'}</button>
+			</form>
+			<p className='add-todo-wrapper__error'>{error}</p>
+		</div>
 	)
 }
 

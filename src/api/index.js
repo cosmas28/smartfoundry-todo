@@ -10,6 +10,11 @@ createServer({
 
 		this.post("/todos", (schema, request) => {
 			let attrs = JSON.parse(request.requestBody)
+      const todo = schema.todos.findBy({ title: attrs.title });
+
+      if (todo) {
+        return new Response(422, {}, { error: 'This task already exists!' });
+      }
 		
 			return schema.todos.create({...attrs, id: Date.now(), status: 'notStarted'})
 		})
