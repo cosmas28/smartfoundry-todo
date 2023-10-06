@@ -1,4 +1,8 @@
 .pie-chart {
 	display: flex;
 	width: 500px;
+
+	@include query (mobile){
+    width: 100%;
+  }
 }

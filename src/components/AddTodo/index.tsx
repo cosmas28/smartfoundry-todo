@@ -18,7 +18,9 @@ const AddTodo: FC = () => {
 
 	return (
 		<form onSubmit={handleOnSubmit} className='add-todo'>
-			<label htmlFor='title'><input id='title' name='title' type='text' onChange={handleTitleChange} /></label>
+			<label className='add-todo__input-wrapper' htmlFor='title'>
+				<input width="100%" id='title' name='title' type='text' onChange={handleTitleChange} />
+			</label>
 			<button type='submit' disabled={!title} className='add-todo__submit-button'>Add</button>
 		</form>
 	)

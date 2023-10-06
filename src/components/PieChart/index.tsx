@@ -36,7 +36,7 @@ const PieChart: FC = () => {
 
 	return (
 		<div className='pie-chart'>
-			<Pie data={chartData} />
+			<Pie data={chartData} style={{ display: 'flex', width: '100%', justifyContent: 'center' }} />
 		</div>
 	)
 }

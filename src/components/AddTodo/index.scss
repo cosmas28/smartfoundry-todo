@@ -1,8 +1,20 @@
 .add-todo {
 	display: flex;
 	flex-direction: row;
+	width: 500px;
+	margin: 8px;
+
+	@include query (mobile){
+    width: 100%;
+		margin: 8px 0 9px
+  }
+
+	&__input-wrapper {
+		width: 80%;
+	}
 
 	&__submit-button {
+		width: 18%;
 		margin-left: 10px;
 		cursor: pointer;
 

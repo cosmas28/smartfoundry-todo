@@ -72,29 +72,31 @@ const TodoItem: FC<Props> = ({ todo: { id, title, status} }) => {
 
 	return (
 		<div className='todo'>
-			<form onSubmit={onClickSaveButton} className='todo__form-wrapper'>
-				<div className='todo__form-wrapper__title'>
-				{isEditing ? (
-					<label htmlFor='title'>
-						<input id='title' name='title' value={updatedTitle} onChange={handleTitleChange} />
+			<div className='todo__wrapper'>
+				<form onSubmit={onClickSaveButton} className='todo__form-wrapper'>
+					<div className='todo__form-wrapper__title'>
+					{isEditing ? (
+						<label htmlFor='title'>
+							<input id='title' name='title' value={updatedTitle} onChange={handleTitleChange} />
+						</label>
+					) : isSubmitting ? <p>Loading...</p> : (<p>{title}</p>)}
+					</div>
+					<label htmlFor='status'>
+						<select id='status' value={updatedStatus} onChange={handleChange}>
+							<option value="notStarted">Not Started</option>
+							<option value="isCompleted">Is Completed</option>
+							<option value="inProgress">In Progress</option>
+						</select>
 					</label>
-				) : isSubmitting ? <p>Loading...</p> : (<p>{title}</p>)}
+				</form>
+				<div className='todo__actions'>
+					<button onClick={isEditing ? onClickSaveButton : onClickEditButton} className='todo__actions__edit'>
+						{isEditing ? 'Save' : isSubmitting ? 'Loading...' : 'Edit'}
+					</button>
+					<button className='todo__actions__delete' disabled={isDeleting || isSubmitting || isEditing } onClick={onClickDeleteButton}>
+						{isDeleting ? 'Deleting...' : 'Delete'}
+					</button>
 				</div>
-				<label htmlFor='status'>
-          <select id='status' value={updatedStatus} onChange={handleChange}>
-            <option value="notStarted">Not Started</option>
-            <option value="isCompleted">Is Completed</option>
-            <option value="inProgress">In Progress</option>
-          </select>
-        </label>
-			</form>
-			<div className='todo__actions'>
-				<button onClick={isEditing ? onClickSaveButton : onClickEditButton} className='todo__actions__edit'>
-					{isEditing ? 'Save' : isSubmitting ? 'Loading...' : 'Edit'}
-				</button>
-				<button className='todo__actions__delete' disabled={isDeleting || isSubmitting || isEditing } onClick={onClickDeleteButton}>
-					{isDeleting ? 'Deleting...' : 'Delete'}
-				</button>
 			</div>
 		</div>
 	)
