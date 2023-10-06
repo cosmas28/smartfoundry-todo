@@ -1,9 +1,12 @@
 import React from 'react'
 import './index.scss'
-import { TodoItem, AddTodo } from '../../components'
+import { TodoItem, AddTodo, PieChart } from '../../components'
 import { useTodo } from '../../context/TodoProvider'
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
-const TodoApp = () => {
+ChartJS.register(ArcElement, Tooltip, Legend);
+
+const TodoApp: React.FC = () => {
 	const { todos, loading } = useTodo()
 
 	return (
@@ -16,6 +19,7 @@ const TodoApp = () => {
 				{loading && <div className='loading'><p>Loading...</p></div>}
 			</div>
 			<div className='todos__section__right'>
+				<PieChart/>
 			</div>
 		</div>
 	)
