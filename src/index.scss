@@ -38,6 +38,12 @@ p {
   margin: 0;
 }
 
+ul {
+  list-style-type: none;
+  padding-inline-start: 0;
+  margin-block-start: 0;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

@@ -1,22 +1,13 @@
 import React from 'react'
 import './index.scss'
-import { TodoItem, AddTodo, PieChart } from '../../components'
-import { useTodo } from '../../context/TodoProvider'
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-
-ChartJS.register(ArcElement, Tooltip, Legend);
+import { AddTodo, PieChart, TodoList } from '../../components'
 
 const TodoApp: React.FC = () => {
-	const { todos, loading } = useTodo()
-
 	return (
 		<div className='todos'>
 			<div className='todos__section__left'>
 				<AddTodo/>
-				{todos?.map((todo) => (
-					<TodoItem key={todo.id} todo={todo} />
-				))}
-				{loading && <div className='loading'><p>Loading...</p></div>}
+				<TodoList/>
 			</div>
 			<div className='todos__section__right'>
 				<PieChart/>
