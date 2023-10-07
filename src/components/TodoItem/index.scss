@@ -1,7 +1,7 @@
 .todo {
 	margin: 8px;
 	@include query (mobile){
-		margin: 8px 0 8px;
+		width: 100%;
 	}
 
 	&__wrapper {
