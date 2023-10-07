@@ -1,5 +1,7 @@
 .pie-chart {
 	display: flex;
+	flex-direction: column;
+	align-items: center;
 	width: 500px;
 
 	@include query (mobile){

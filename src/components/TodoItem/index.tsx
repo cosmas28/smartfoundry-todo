@@ -1,4 +1,4 @@
-import React, { useState, FormEvent, Fragment } from 'react'
+import React, { useState, FormEvent } from 'react'
 import { useTodo, BASE_URL } from '../../context/TodoProvider'
 import { Status, Todo } from '../../types'
 import { Chip } from '../../components'
@@ -37,7 +37,6 @@ const TodoItem: React.FC<Props> = ({ todo: { id, title, status} }) => {
 
 	const handleChange = async (event: FormEvent<HTMLSelectElement>) =>  {
     setUpdatedStatus(event.currentTarget.value as Status);
-		updateTodoItem?.({ id, status: event.currentTarget.value as Status, title: updatedTitle })
   }
 
 	const handleTitleChange = (event: FormEvent<HTMLInputElement>) => {
