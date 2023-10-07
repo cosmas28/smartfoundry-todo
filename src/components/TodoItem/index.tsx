@@ -1,13 +1,14 @@
-import React, { FC, useState, FormEvent } from 'react'
+import React, { useState, FormEvent } from 'react'
 import { useTodo, BASE_URL } from '../../context/TodoProvider'
 import { Status, Todo } from '../../types'
+import { Chip } from '../../components'
 import './index.scss'
 
 type Props = {
 	todo: Todo
 }
 
-const TodoItem: FC<Props> = ({ todo: { id, title, status} }) => {
+const TodoItem: React.FC<Props> = ({ todo: { id, title, status} }) => {
 	const { setAllTodos, todos } = useTodo()
 	const [updatedStatus, setUpdatedStatus] = useState<Status>(status)
 	const [isEditing, setIsEditing] = useState<boolean>(false)
@@ -74,20 +75,25 @@ const TodoItem: FC<Props> = ({ todo: { id, title, status} }) => {
 		<div className='todo'>
 			<div className='todo__wrapper'>
 				<form onSubmit={onClickSaveButton} className='todo__form-wrapper'>
-					<div className='todo__form-wrapper__title'>
 					{isEditing || isSubmitting ? (
-						<label htmlFor='title'>
-							<input id='title' name='title' value={updatedTitle} onChange={handleTitleChange} />
-						</label>
-					) : (<p>{title}</p>)}
-					</div>
-					<label htmlFor='status'>
-						<select id='status' value={updatedStatus} onChange={handleChange}>
-							<option value="notStarted">Not Started</option>
-							<option value="isCompleted">Is Completed</option>
-							<option value="inProgress">In Progress</option>
-						</select>
-					</label>
+						<>
+							<label htmlFor='title'>
+								<input id='title' name='title' value={updatedTitle} onChange={handleTitleChange} />
+							</label>
+							<label htmlFor='status'>
+								<select id='status' value={updatedStatus} onChange={handleChange}>
+									<option value="notStarted">Not Started</option>
+									<option value="isCompleted">Is Completed</option>
+									<option value="inProgress">In Progress</option>
+								</select>
+							</label>
+						</>
+					) : (
+						<>
+							<p>{title}</p>
+							<Chip status={status} />
+						</>
+					)}
 				</form>
 				<div className='todo__actions'>
 					<button disabled={!updatedTitle} onClick={isEditing ? onClickSaveButton : onClickEditButton} className='todo__actions__edit'>

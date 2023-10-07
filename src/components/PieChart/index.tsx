@@ -12,9 +12,9 @@ const PieChart: FC = () => {
 	const { todos } = useTodo()
 	const chartData = useMemo(() => {
 		const colors: {[Key in Status]: string} = {
-			notStarted: '#696969',
+			notStarted: '#8F8F8F',
 			inProgress: '#FFFF00',
-			isCompleted: '#008000'
+			isCompleted: '#00F500'
 		}
 
 		const groupedTodos = countBy(todos, 'status')
