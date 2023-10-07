@@ -8,16 +8,16 @@ createServer({
   routes() {
     this.namespace = 'api';
 
-		this.post("/todos", (schema, request) => {
-			let attrs = JSON.parse(request.requestBody)
+    this.post('/todos', (schema, request) => {
+      let attrs = JSON.parse(request.requestBody);
       const todo = schema.todos.findBy({ title: attrs.title });
 
       if (todo) {
         return new Response(422, {}, { error: 'This task already exists!' });
       }
-		
-			return schema.todos.create({...attrs, id: Date.now(), status: 'notStarted'})
-		})
+
+      return schema.todos.create({ ...attrs, id: Date.now(), status: 'notStarted' });
+    });
 
     this.get('/todos', async (schema, request) => {
       await sleep();
@@ -59,16 +59,16 @@ createServer({
       return todo.update(newAttrs);
     });
 
-		this.delete("/todos/:id", (schema, request) => {
-			let id = request.params.id
-		
-			return schema.todos.find(id).destroy()
-		})
+    this.delete('/todos/:id', (schema, request) => {
+      let id = request.params.id;
+
+      return schema.todos.find(id).destroy();
+    });
   },
 
   seeds(server) {
     server.create('todo', {
-			id: Date.now(),
+      id: Date.now(),
       status: 'notStarted',
       title: 'Demo completed tickets',
     });
@@ -79,7 +79,7 @@ createServer({
 function sleep() {
   // eslint-disable-next-line no-undef
   if (process.env.NODE_ENV === 'development') {
-    return new Promise(resolve => setTimeout(resolve, 1000 * 2 * Math.random()));
+    return new Promise((resolve) => setTimeout(resolve, 1000 * 2 * Math.random()));
   }
   return Promise.resolve();
 }
