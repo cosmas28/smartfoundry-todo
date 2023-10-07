@@ -23,6 +23,10 @@
 		flex-direction: row;
 		justify-content: space-between;
 		margin-bottom: 8px;
+
+		&__status {
+			margin-left: 4px;
+		}
 	}
 
 	&__actions {

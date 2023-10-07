@@ -76,10 +76,8 @@ const TodoItem: React.FC<Props> = ({ todo: { id, title, status} }) => {
 				<form onSubmit={onClickSaveButton} className='todo__form-wrapper'>
 					{isEditing || isSubmitting ? (
 						<>
-							<span>
-								<input aria-label="Title" id='title' name='title' value={updatedTitle} onChange={handleTitleChange} />
-							</span>
-							<label htmlFor='status'>
+							<input aria-label="Title" id='title' name='title' value={updatedTitle} onChange={handleTitleChange} />
+							<label htmlFor='status' className='todo__form-wrapper__status'>
 								<select aria-label="Status" id='status' value={updatedStatus} onChange={handleChange}>
 									<option value="notStarted">Not Started</option>
 									<option value="isCompleted">Is Completed</option>
