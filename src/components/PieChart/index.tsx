@@ -5,6 +5,7 @@ import { useTodo } from '../../context/TodoProvider'
 import { Status } from '../../types'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+import { statusMapping } from '../Chip'
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -22,7 +23,7 @@ const PieChart: FC = () => {
 		const backgroundColors = labels.map((label) => colors[label])
 
 		return {
-			labels: labels,
+			labels: labels.map((label) => statusMapping[label]),
 			datasets: [
 				{
 					data: Object.values(groupedTodos),

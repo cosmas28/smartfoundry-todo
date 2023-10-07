@@ -70,7 +70,7 @@ const TodoList: React.FC = () => {
 			<DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
 				{(provided): JSX.Element => (
-          <div
+          <ul
             {...provided.droppableProps}
             ref={provided.innerRef}
 						className='todo-list'
@@ -80,14 +80,14 @@ const TodoList: React.FC = () => {
                 state.map((item: Todo, index: number) => (
                   <Draggable key={item.id} draggableId={item.id} index={index}>
                     {(provided, snapshot): JSX.Element => (
-                      <div
+                      <li
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                       >
                         <TodoItem todo={item} />
-                      </div>
+                      </li>
                     )}
                   </Draggable>
                 ))
@@ -96,19 +96,19 @@ const TodoList: React.FC = () => {
                 initialState.map((item: Todo, index: number) => (
                   <Draggable key={item.id} draggableId={item.id} index={index}>
                     {(provided, snapshot): JSX.Element => (
-                      <div
+                      <li
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                       >
                         <TodoItem todo={item} />
-                      </div>
+                      </li>
                     )}
                   </Draggable>
                 ))}
             {provided.placeholder}
-          </div>
+          </ul>
         )}
 				</Droppable>
 			</DragDropContext>

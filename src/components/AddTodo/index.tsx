@@ -43,10 +43,11 @@ const AddTodo: FC = () => {
 	return (
 		<div className='add-todo-wrapper'>
 			<form onSubmit={handleOnSubmit} className='add-todo'>
-				<label className='add-todo__input-wrapper' htmlFor='title'>
-					<input width="100%" id='title' name='title' type='text' value={title} onChange={handleTitleChange} />
-				</label>
-				<button type='submit' disabled={!title} className='add-todo__submit-button'>{isSubmitting ? 'Loading...' : 'Add'}</button>
+				<label htmlFor='title'>What do you want to do?</label>
+				<span className='add-todo__input-wrapper'>
+					<input aria-aria-label='Title' width="100%" id='title' name='title' type='text' value={title} onChange={handleTitleChange} />
+					<button type='submit' disabled={!title} className='add-todo__submit-button'>{isSubmitting ? 'Loading...' : 'Add'}</button>
+				</span>
 			</form>
 			<p className='add-todo-wrapper__error'>{error}</p>
 		</div>

@@ -16,7 +16,7 @@
 }
 .add-todo {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	width: 500px;
 
 	@include query (mobile){
@@ -25,12 +25,14 @@
   }
 
 	&__input-wrapper {
-		width: 80%;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
 	}
 
 	&__submit-button {
 		width: 18%;
-		margin-left: 10px;
+		margin-left: 4px;
 		cursor: pointer;
 
 		&:disabled {

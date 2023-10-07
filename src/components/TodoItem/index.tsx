@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react'
+import React, { useState, FormEvent, Fragment } from 'react'
 import { useTodo, BASE_URL } from '../../context/TodoProvider'
 import { Status, Todo } from '../../types'
 import { Chip } from '../../components'
@@ -77,11 +77,11 @@ const TodoItem: React.FC<Props> = ({ todo: { id, title, status} }) => {
 				<form onSubmit={onClickSaveButton} className='todo__form-wrapper'>
 					{isEditing || isSubmitting ? (
 						<>
-							<label htmlFor='title'>
-								<input id='title' name='title' value={updatedTitle} onChange={handleTitleChange} />
-							</label>
+							<span>
+								<input aria-label="Title" id='title' name='title' value={updatedTitle} onChange={handleTitleChange} />
+							</span>
 							<label htmlFor='status'>
-								<select id='status' value={updatedStatus} onChange={handleChange}>
+								<select aria-label="Status" id='status' value={updatedStatus} onChange={handleChange}>
 									<option value="notStarted">Not Started</option>
 									<option value="isCompleted">Is Completed</option>
 									<option value="inProgress">In Progress</option>
@@ -96,10 +96,10 @@ const TodoItem: React.FC<Props> = ({ todo: { id, title, status} }) => {
 					)}
 				</form>
 				<div className='todo__actions'>
-					<button disabled={!updatedTitle} onClick={isEditing ? onClickSaveButton : onClickEditButton} className='todo__actions__edit'>
+					<button type='button' disabled={!updatedTitle} onClick={isEditing ? onClickSaveButton : onClickEditButton} className='todo__actions__edit'>
 						{isEditing ? 'Save' : isSubmitting ? 'Loading...' : 'Edit'}
 					</button>
-					<button className='todo__actions__delete' disabled={isDeleting || isSubmitting || isEditing } onClick={onClickDeleteButton}>
+					<button type='button' className='todo__actions__delete' disabled={isDeleting || isSubmitting || isEditing } onClick={onClickDeleteButton}>
 						{isDeleting ? 'Deleting...' : 'Delete'}
 					</button>
 				</div>
