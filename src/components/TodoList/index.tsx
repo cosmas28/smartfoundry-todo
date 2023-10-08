@@ -38,10 +38,15 @@ const getItemStyle = (
   ...draggableStyle,
 });
 
+const getListStyle = () => ({
+  background: 'white',
+  width: '100%',
+});
+
 const TodoList: React.FC = () => {
   const { todos, loading } = useTodo();
   const [initialState, setInitialState] = useState<Todo[]>([]);
-  const [state, setState] = useState<Todo[]>();
+  // const [state, setState] = useState<Todo[]>();
 
   useEffect(() => {
     if (todos) {
@@ -58,48 +63,32 @@ const TodoList: React.FC = () => {
     if (initialState) {
       const items = reorderList(initialState, result.source.index, result.destination.index);
 
-      setState(items);
+      setInitialState(items);
     }
   };
 
   return (
-    <>
+    <div className="todo-list">
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided): JSX.Element => (
-            <ul {...provided.droppableProps} ref={provided.innerRef} className="todo-list">
-              {state
-                ? state.length !== 0 &&
-                  state.map((item: Todo, index: number) => (
-                    <Draggable key={item.id} draggableId={item.id} index={index}>
-                      {(provided, snapshot): JSX.Element => (
-                        <li
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
-                        >
-                          <TodoItem todo={item} />
-                        </li>
-                      )}
-                    </Draggable>
-                  ))
-                : initialState &&
-                  initialState.length !== 0 &&
-                  initialState.map((item: Todo, index: number) => (
-                    <Draggable key={item.id} draggableId={item.id} index={index}>
-                      {(provided, snapshot): JSX.Element => (
-                        <li
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
-                        >
-                          <TodoItem todo={item} />
-                        </li>
-                      )}
-                    </Draggable>
-                  ))}
+            <ul {...provided.droppableProps} ref={provided.innerRef} style={getListStyle()}>
+              {initialState &&
+                initialState.length !== 0 &&
+                initialState.map((item: Todo, index: number) => (
+                  <Draggable key={item.id} draggableId={item.id} index={index}>
+                    {(provided, snapshot): JSX.Element => (
+                      <li
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
+                      >
+                        <TodoItem todo={item} />
+                      </li>
+                    )}
+                  </Draggable>
+                ))}
               {provided.placeholder}
             </ul>
           )}
@@ -110,7 +99,7 @@ const TodoList: React.FC = () => {
           <p>Loading...</p>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
