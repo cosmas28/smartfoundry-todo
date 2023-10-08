@@ -1,3 +1,24 @@
+.container {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+
+	&__heading {
+		width: 100%;
+		display: flex;
+		justify-content: flex-start;
+		height: 10vh;
+		padding: 0 10px 0;
+
+		> h2 {
+			font-size: 24px;
+
+			@include query (mobile){
+				flex-direction: column;
+			}
+		}
+	}
+}
 .todos {
 	width: 100%;
 	display: flex;
