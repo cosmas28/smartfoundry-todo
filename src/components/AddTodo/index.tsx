@@ -1,4 +1,4 @@
-import React, { FC, useState, FormEvent } from 'react';
+import { FC, useState, FormEvent } from 'react';
 import { useTodo, BASE_URL } from '../../context/TodoProvider';
 import './index.scss';
 
