@@ -38,5 +38,12 @@
 		&:disabled {
 			cursor: not-allowed;
 		}
+
+		> span {
+			font-size: 16px;
+			@include query (mobile){
+				font-size: 10px;
+			}
+		}
 	}
 }

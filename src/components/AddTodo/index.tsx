@@ -54,7 +54,7 @@ const AddTodo: FC = () => {
             onChange={handleTitleChange}
           />
           <button type="submit" disabled={!title} className="add-todo__submit-button">
-            {isSubmitting ? 'Loading...' : 'Add'}
+            {isSubmitting ? <span>Loading...</span> : 'Add'}
           </button>
         </span>
       </form>
