@@ -1,5 +1,5 @@
 /* eslint-disable import/named */
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   DragDropContext,
   Draggable,
@@ -12,14 +12,6 @@ import './index.scss';
 import { TodoItem } from '../../components';
 import { useTodo } from '../../context/TodoProvider';
 import { Todo } from '../../types';
-
-const reorderList = (list: Array<Todo>, startIndex: number, endIndex: number): Array<Todo> => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
 
 const getItemStyle = (
   isDragging: boolean,
@@ -44,38 +36,17 @@ const getListStyle = () => ({
 });
 
 const TodoList: React.FC = () => {
-  const { todos, loading } = useTodo();
-  const [initialState, setInitialState] = useState<Todo[]>([]);
-  // const [state, setState] = useState<Todo[]>();
-
-  useEffect(() => {
-    if (todos) {
-      setInitialState(todos);
-    }
-  }, [todos]);
-
-  const onDragEnd = (result: DropResult): void => {
-    // dropped outside the list
-    if (!result.destination) {
-      return;
-    }
-
-    if (initialState) {
-      const items = reorderList(initialState, result.source.index, result.destination.index);
-
-      setInitialState(items);
-    }
-  };
+  const { todos, loading, onDragEnd } = useTodo();
 
   return (
     <div className="todo-list">
-      <DragDropContext onDragEnd={onDragEnd}>
+      <DragDropContext onDragEnd={onDragEnd as (result: DropResult) => void}>
         <Droppable droppableId="droppable">
           {(provided): JSX.Element => (
             <ul {...provided.droppableProps} ref={provided.innerRef} style={getListStyle()}>
-              {initialState &&
-                initialState.length !== 0 &&
-                initialState.map((item: Todo, index: number) => (
+              {todos &&
+                todos.length !== 0 &&
+                todos.map((item: Todo, index: number) => (
                   <Draggable key={item.id} draggableId={item.id} index={index}>
                     {(provided, snapshot): JSX.Element => (
                       <li
